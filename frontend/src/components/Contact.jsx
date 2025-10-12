@@ -28,7 +28,7 @@ export default function Contact() {
     setLoading(true);
     setSuccess(false);
     try {
-      await axios.post("https://me-back.onrender.com", form);
+      await axios.post("https://me-back.onrender.com/api/contact", form);
       setLoading(false);
       setSuccess(true);
       setForm({ name: "", email: "", phone: "", subject: "", message: "" });
