@@ -37,13 +37,29 @@ export default function Hero() {
           <FaGithub size={28} className="text-black dark:text-white" />
         </a>
         <button
-          onClick={() => setShowPhone(!showPhone)}
+          onClick={() => {
+            // Scroll smoothly to Hero section
+            document
+              .getElementById("home")
+              .scrollIntoView({ behavior: "smooth", block: "start" });
+
+            // Wait a bit for scroll to complete, then show/hide phone
+            setTimeout(() => setShowPhone((prev) => !prev), 500);
+          }}
           className="p-3 border-2 border-green-500 rounded-full hover:scale-110 transition"
         >
           <FaPhoneAlt size={26} className="text-green-500" />
         </button>
         <button
-          onClick={() => setShowEmail(!showEmail)}
+          onClick={() => {
+            // Scroll smoothly to Hero section
+            document
+              .getElementById("home")
+              .scrollIntoView({ behavior: "smooth", block: "start" });
+
+            // Wait a bit for scroll to complete, then show/hide email
+            setTimeout(() => setShowEmail((prev) => !prev), 500);
+          }}
           className="p-3 border-2 border-red-500 rounded-full hover:scale-110 transition"
         >
           <FaEnvelope size={26} className="text-red-500" />
@@ -77,14 +93,17 @@ export default function Hero() {
           {/* Animated Phone & Email */}
           <div className="mb-4 space-y-2">
             {showPhone && (
-              <span className="text-green-600 font-medium text-lg md:text-xl">
+              <a
+                href="tel:+917299115610"
+                className="text-green-600 font-medium text-lg md:text-xl hover:underline"
+              >
                 <Typewriter
                   words={["+91 7299115610"]}
                   cursor
                   cursorStyle="_"
                   typeSpeed={80}
                 />
-              </span>
+              </a>
             )}{" "}
             <br />
             {showEmail && (
