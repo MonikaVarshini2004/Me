@@ -31,7 +31,7 @@ export default function Contact() {
     setLoading(true);
     setSuccess(false);
     try {
-      await axios.post("http://localhost:5000/api/contact", form);
+      await axios.post("https://me-back.onrender.com/api/contact", form);
       setLoading(false);
       setSuccess(true);
       setForm({
