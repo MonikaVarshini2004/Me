@@ -42,8 +42,26 @@ export const moreProjects = [
     ],
     tech: "HTML, TailwindCSS, JavaScript (Vanilla JS, no backend required)",
 
-    github: "https://github.com/MonikaVarshini2004/HabitTracker",
-    live: "https://monikavarshini2004.github.io/HabitTracker/",
+    github: "https://github.com/MonikaVarshini2004/HabitTracker-1-",
+    live: "https://monikavarshini2004.github.io/HabitTracker-1-/",
   },
-  
+  {
+  title: "Friendship & Birthday Web Experience",
+  description:
+    "An interactive, multi-page friendship and birthday website featuring friendship galleries, heartfelt messages, music, videos, puzzles, secret messages, surprise activities, and animated birthday celebrations.",
+  features: [
+    "Multi-page interactive birthday and friendship experience",
+    "Friendship gallery with images and visual effects",
+    "Birthday letters, quotes, and special messages",
+    "Music and video integration",
+    "Interactive challenges, puzzles, and scratch card",
+    "Keyword-based lock sequence and secret message",
+    "Random surprise wheel and animated magical ending",
+    "Birthday-themed animations and celebration effects",
+  ],
+  tech: "HTML5, CSS3, JavaScript (Vanilla JS, static frontend, no backend required)",
+
+  github: "https://github.com/MonikaVarshini2004/friendship-birthday-website",
+  live: "https://friendship-makes-happy.netlify.app/",
+},
 ];
