@@ -9,7 +9,7 @@ import cssImg from "../assets/css.png";
 import jsImg from "../assets/javascript.png";
 import reactImg from "../assets/react.png";
 import nodeImg from "../assets/nodejs.png";
-import expressImg from "../assets/express.png";
+import springBootImg from "../assets/springboot.png";
 import mysqlImg from "../assets/mysql.png";
 import tailwindImg from "../assets/tailwind.png";
 
@@ -20,7 +20,7 @@ const skills = [
   { name: "JavaScript", img: jsImg },
   { name: "React", img: reactImg },
   { name: "Node.js", img: nodeImg },
-  { name: "Express", img: expressImg },
+  { name: "Spring Boot", img: springBootImg },
   { name: "MySQL", img: mysqlImg },
   { name: "Tailwind CSS", img: tailwindImg },
 ];
