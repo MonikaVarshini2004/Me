@@ -2,6 +2,21 @@
 
 export const initialProjects = [
   {
+  title: "BizConnect – Business Marketplace Platform",
+  description:
+    "A full-stack web application that connects businesses and vendors through a role-based platform. It supports vendor management, verification, and business interactions with a responsive interface.",
+  features: [
+    "Role-based user and admin management",
+    "Vendor registration and verification",
+    "Business marketplace and user comments",
+    "REST API integration with MySQL",
+    "Live deployment with frontend and backend integration",
+  ],
+  tech: "Java, Spring Boot, React, MySQL, REST APIs",
+  github: "https://github.com/MonikaVarshini2004/BizConnect",
+  live: "https://biz-connect-nine.vercel.app",
+},
+  {
     title: "ChrisMA Quest Game – Mini Project",
     description:
       "Developed a fun and interactive web application that randomly assigns names and challenges to players. Features include animated UI, responsive design, customizable tasks, and optional automated email delivery using Nodemailer.",
