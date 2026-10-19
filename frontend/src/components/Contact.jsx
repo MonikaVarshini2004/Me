@@ -9,16 +9,16 @@ import {
 } from "react-icons/fa";
 
 export default function Contact() {
-  const [form, setForm]       = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error,   setError]   = useState("");
+  const [error, setError] = useState("");
 
   const { theme, themes } = useTheme();
-  const section  = themes[theme].Section;
-  const card     = themes[theme].Card;
-  const button1  = themes[theme].Button1;
-  const isDark   = theme === "dark";
+  const section = themes[theme].Section;
+  const card = themes[theme].Card;
+  const button1 = themes[theme].Button1;
+  const isDark = theme === "dark";
 
   const accentColor = isDark ? "#06b6d4" : "#7c3aed";
   const accentClass = isDark ? "text-[#06b6d4]" : "text-[#7c3aed]";
@@ -41,7 +41,7 @@ export default function Contact() {
     setError("");
 
     try {
-      await axios.post("https://me-back.onrender.com/api/contact", form);
+      await axios.post("http://localhost:5000/api/contact", form);
       setLoading(false);
       setSuccess(true);
       setForm({ name: "", email: "", phone: "", subject: "", message: "" });
@@ -241,7 +241,7 @@ export default function Contact() {
                 type="submit"
                 disabled={loading}
                 whileHover={{ scale: loading ? 1 : 1.02 }}
-                whileTap={  { scale: loading ? 1 : 0.97 }}
+                whileTap={{ scale: loading ? 1 : 0.97 }}
                 className={`
                   flex items-center justify-center gap-2 w-full px-6 py-3 rounded-xl
                   font-semibold transition-all duration-300 disabled:opacity-60
