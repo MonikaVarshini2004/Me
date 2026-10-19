@@ -1,5 +1,6 @@
+
 import express from "express";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 const router = express.Router();
 
@@ -7,21 +8,25 @@ router.post("/", async (req, res) => {
   const { name, email, phone, subject, message } = req.body;
 
   if (!name || !email || !message) {
-    return res.status(400).json({ error: "Name, email, and message are required" });
+    return res.status(400).json({
+      error: "Name, email, and message are required",
+    });
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not configured");
+    return res.status(500).json({
+      error: "Email service is not configured",
+    });
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    const mailOptions = {
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.TO_EMAIL,
+    const { data, error } = await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>",
+      to: [process.env.TO_EMAIL],
+      replyTo: email,
       subject: `By visiting your portfolio: ${subject || "New Message"}`,
       html: `
         <h2>New Message from Portfolio Contact Form</h2>
@@ -34,14 +39,25 @@ router.post("/", async (req, res) => {
         <hr>
         <p>Sent via your portfolio contact form</p>
       `,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
+    if (error) {
+      console.error("Resend error:", error);
+      return res.status(500).json({
+        error: "Failed to send email",
+      });
+    }
 
-    res.status(200).json({ message: "Email sent successfully!" });
+    console.log("Email sent successfully:", data?.id);
+
+    return res.status(200).json({
+      message: "Email sent successfully!",
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to send email" });
+    console.error("Email sending failed:", err);
+    return res.status(500).json({
+      error: "Failed to send email",
+    });
   }
 });
 
