@@ -1,3 +1,4 @@
+
 // src/components/Contact.jsx
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
@@ -7,6 +8,8 @@ import {
   FaEnvelope, FaPhoneAlt, FaLinkedin, FaGithub,
   FaCheckCircle, FaTimesCircle, FaPaperPlane,
 } from "react-icons/fa";
+
+const API_URL = import.meta.env.VITE_API_URL ;
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
@@ -41,7 +44,7 @@ export default function Contact() {
     setError("");
 
     try {
-      await axios.post("http://localhost:5000/api/contact", form);
+      await axios.post(`${API_URL}/api/contact`, form);
       setLoading(false);
       setSuccess(true);
       setForm({ name: "", email: "", phone: "", subject: "", message: "" });
