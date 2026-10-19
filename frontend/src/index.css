@@ -1,14 +1,187 @@
 @import "tailwindcss";
-/* Global styles */
+
+/* =============================================================================
+   FONTS
+   Outfit loaded via Google Fonts in index.html. Applied to headings globally.
+   Inter loaded via Google Fonts in index.html. Applied to body globally.
+============================================================================= */
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* globals.css */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', system-ui, sans-serif;
+}
+
+/* Utility: force Outfit on any element */
+.font-outfit {
+  font-family: 'Outfit', system-ui, sans-serif;
+}
+
+/* =============================================================================
+   CLIP PATHS
+============================================================================= */
 .clip-hexagon {
   clip-path: polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%);
+}
+
+/* =============================================================================
+   GLASSMORPHISM UTILITIES
+   Used for cards and panels on top of gradient backgrounds.
+============================================================================= */
+.glass-dark {
+  background: rgba(13, 19, 64, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(6, 182, 212, 0.15);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(124, 58, 237, 0.12);
+}
+
+/* =============================================================================
+   AMBIENT ORB ANIMATIONS (background decoration)
+   Place .orb.orb-cyan / .orb.orb-violet inside a position:relative container.
+============================================================================= */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orb-drift 10s ease-in-out infinite alternate;
+}
+
+.orb-cyan {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.28) 0%, transparent 70%);
+}
+
+.orb-violet {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.22) 0%, transparent 70%);
+}
+
+.orb-cyan-light {
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
+}
+
+.orb-violet-light {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.10) 0%, transparent 70%);
+}
+
+@keyframes orb-drift {
+  0%   { transform: scale(1)    translate(0, 0);       opacity: 0.7; }
+  40%  { transform: scale(1.12) translate(4%, -4%);    opacity: 1;   }
+  70%  { transform: scale(0.95) translate(-2%, 5%);    opacity: 0.6; }
+  100% { transform: scale(1.05) translate(-5%, -2%);   opacity: 0.8; }
+}
+
+/* =============================================================================
+   SECTION HEADING ACCENT LINE
+   Apply .heading-underline on the colored <span> inside a heading.
+============================================================================= */
+.section-heading {
+  position: relative;
+  display: inline-block;
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #06b6d4, #7c3aed);
+}
+
+/* =============================================================================
+   GLOW UTILITIES
+============================================================================= */
+.glow-cyan {
+  box-shadow: 0 0 28px rgba(6, 182, 212, 0.35);
+}
+
+.glow-violet {
+  box-shadow: 0 0 28px rgba(124, 58, 237, 0.35);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+}
+
+/* =============================================================================
+   CUSTOM SCROLLBAR (webkit browsers)
+============================================================================= */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020817;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #06b6d4, #7c3aed);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #0891b2, #6d28d9);
+}
+
+/* =============================================================================
+   TECH BADGE PILLS (used in Projects section)
+============================================================================= */
+.tech-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.tech-badge-dark {
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  color: #06b6d4;
+}
+
+.tech-badge-light {
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  color: #7c3aed;
+}
+
+/* =============================================================================
+   REDUCED MOTION — respect user preferences
+============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .orb {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
