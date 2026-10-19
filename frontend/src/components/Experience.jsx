@@ -1,82 +1,140 @@
 // src/components/Experience.jsx
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { FaBriefcase, FaCalendarAlt } from "react-icons/fa";
 import { useTheme } from "./Theme";
 
 const experiences = [
   {
-    role: "Full Stack Web Development Intern",
-    company: "8Queens Software Technologies Pvt. Ltd., Chennai",
-    period: "23rd June 2025 – 23rd July 2025",
+    role:        "Full Stack Web Development Intern",
+    company:     "8Queens Software Technologies Pvt. Ltd., Chennai",
+    period:      "June 2025 – July 2025",
+    duration:    "1 Month",
     description:
-      "Worked on a MindChirps website clone, strengthening skills in HTML, CSS, JavaScript, React.js, Node.js, Express.js, MySQL/MongoDB, Git & GitHub.",
+      "Worked on a MindChirps website clone, strengthening skills in HTML, CSS, JavaScript, React.js, Node.js, Express.js, MySQL/MongoDB, and Git & GitHub.",
   },
   {
-    role: "Software Intern",
-    company: "TABTREE Software Solutions, Chennai",
-    period: "25th Aug 2025 – 6th Sept 2025",
+    role:        "Software Intern",
+    company:     "TABTREE Software Solutions, Chennai",
+    period:      "August 2025 – September 2025",
+    duration:    "2 Weeks",
     description:
-      "Gained exposure to software development practices through training sessions and hands-on tasks.",
+      "Gained exposure to professional software development practices through training sessions and hands-on development tasks.",
   },
 ];
 
+const stagger = {
+  hidden: {},
+  show:   { transition: { staggerChildren: 0.18 } },
+};
+
+const itemVariant = {
+  hidden: { opacity: 0, x: -32 },
+  show:   { opacity: 1, x: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export default function Experience() {
-  const [animateToggle, setAnimateToggle] = useState(false);
   const { theme, themes } = useTheme();
   const section = themes[theme].Section;
-  const card = themes[theme].Card;
-  const accent = theme === "light" ? "text-[#7b2cbf]" : "text-[#caf0f8]";
-  const timelineBorder = theme === "light" ? "border-[#7b2cbf]" : "border-[#caf0f8]";
+  const card    = themes[theme].Card;
+  const isDark  = theme === "dark";
 
-  // Replay animation when hash changes
-  useEffect(() => {
-    const handleHashChange = () => {
-      if (window.location.hash === "#experience") {
-        setAnimateToggle((prev) => !prev);
-      }
-    };
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
+  const accentColor = isDark ? "#06b6d4" : "#7c3aed";
+  const accentClass = isDark ? "text-[#06b6d4]" : "text-[#7c3aed]";
+  const lineColor   = isDark ? "rgba(6,182,212,0.25)" : "rgba(124,58,237,0.22)";
 
   return (
     <section
       id="experience"
-      className={`min-h-screen flex items-center justify-center px-6 py-20 transition-colors duration-500 ${section.bg} ${section.text}`}
+      className={`relative min-h-screen flex items-center justify-center px-6 py-24 overflow-hidden transition-colors duration-500 ${section.bg} ${section.text}`}
     >
-      <div className="max-w-5xl w-full">
+      {/* Background orb */}
+      <div
+        className={`orb ${isDark ? "orb-violet" : "orb-violet-light"}`}
+        style={{ width: 320, height: 320, top: "10%", right: "-4%", animationDelay: "1s" }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 max-w-4xl w-full">
+
         {/* Heading */}
-        <motion.h2
-          key={animateToggle}
-          initial={{ opacity: 0, y: -40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className={`text-4xl md:text-5xl font-bold text-center mb-12 ${section.text}`}
+        <motion.div
+          initial={{ opacity: 0, y: -28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-14"
         >
-          My <span className={accent}>Experience</span>
-        </motion.h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-3">
+            My <span className={accentClass}>Experience</span>
+          </h2>
+          <div
+            className="mx-auto h-1 w-14 rounded-full"
+            style={{ background: `linear-gradient(90deg, ${accentColor}, ${isDark ? "#7c3aed" : "#06b6d4"})` }}
+          />
+        </motion.div>
 
         {/* Timeline */}
-        <div className={`relative border-l-4 ${timelineBorder} pl-8 space-y-12`}>
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index + "-" + animateToggle}
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: index * 0.2 }}
-              className={`p-6 rounded-2xl shadow-lg hover:shadow-2xl transition relative ${card.bg} ${card.text}`}
-            >
-              {/* Timeline dot */}
-              <span
-                className={`absolute -left-[30px] top-6 w-6 h-6 rounded-full ${accent} border-4 border-white shadow-md`}
-              ></span>
+        <div
+          className="relative pl-8 border-l-2"
+          style={{ borderColor: lineColor }}
+        >
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px" }}
+            className="space-y-10"
+          >
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                variants={itemVariant}
+                className={`relative rounded-2xl p-6 md:p-8 ${card.bg} ${card.hover}`}
+              >
+                {/* ✅ Fixed timeline dot — theme-aware, no hardcoded border-white */}
+                <span
+                  className="absolute -left-[2.05rem] top-7 w-4 h-4 rounded-full border-2 flex-shrink-0"
+                  style={{
+                    backgroundColor: accentColor,
+                    borderColor: isDark ? "#020817" : "#f8faff",
+                    boxShadow: `0 0 10px ${accentColor}60`,
+                  }}
+                  aria-hidden="true"
+                />
 
-              <h3 className={`text-xl font-bold ${section.text}`}>{exp.role}</h3>
-              <p className={`${accent} font-medium`}>{exp.company}</p>
-              <p className={`text-sm ${section.text}/70 mb-3`}>{exp.period}</p>
-              <p className={`text-sm ${section.text}/80`}>{exp.description}</p>
-            </motion.div>
-          ))}
+                {/* Header */}
+                <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <FaBriefcase size={13} style={{ color: accentColor }} />
+                      <h3 className="text-lg font-bold">{exp.role}</h3>
+                    </div>
+                    <p className={`font-semibold text-sm ${accentClass}`}>{exp.company}</p>
+                  </div>
+
+                  {/* Duration badge */}
+                  <span
+                    className={`
+                      flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold flex-shrink-0
+                      ${isDark
+                        ? "bg-[#06b6d4]/10 border border-[#06b6d4]/20 text-[#06b6d4]"
+                        : "bg-[#7c3aed]/8 border border-[#7c3aed]/18 text-[#7c3aed]"
+                      }
+                    `}
+                  >
+                    <FaCalendarAlt size={10} />
+                    {exp.duration}
+                  </span>
+                </div>
+
+                {/* Period */}
+                <p className="text-xs opacity-50 mb-3">{exp.period}</p>
+
+                {/* Description */}
+                <p className="text-sm opacity-78 leading-relaxed">{exp.description}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
